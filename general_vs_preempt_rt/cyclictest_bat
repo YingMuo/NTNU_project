@@ -1,0 +1,8 @@
+$ sudo ./cyclictest -a 0-3 -N -t -p50
+# /dev/cpu_dma_latency set to 0us
+policy: fifo: loadavg: 1.89 0.74 0.41 5/497 35554           
+
+T: 0 (35549) P:50 I:1000 C:  34960 Min:   8312 Act:   40148 Avg:   22255 Max:  625349
+T: 1 (35550) P:50 I:1500 C:  23306 Min:   8469 Act:   56841 Avg:   26051 Max:  221438
+T: 2 (35551) P:50 I:2000 C:  17480 Min:   9078 Act:   27093 Avg:   29505 Max:  184080
+T: 3 (35552) P:50 I:2500 C:  13984 Min:   9187 Act:   27389 Avg:   32190 Max:  169597
