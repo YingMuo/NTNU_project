@@ -11,16 +11,14 @@
 
 void test_work(void *test_data);
 
-void get_work_time(void (*test_work)(void *), void *test_data, int *ctr, struct timespec *sum, long *min, long *max)
+void get_work_time(void (*test_work)(void *), void *test_data, struct timespec *ts, int *ctr, struct timespec *sum, long *min, long *max)
 {
-    struct timespec t1;
-    struct timespec t2;
+    struct timespec te;
     struct timespec diff;
-    clock_gettime(CLOCK_MONOTONIC, &t1);
     test_work(test_data);
-    clock_gettime(CLOCK_MONOTONIC, &t2);
-    diff.tv_sec = t2.tv_sec - t1.tv_sec;
-    diff.tv_nsec = t2.tv_nsec - t1.tv_nsec;
+    clock_gettime(CLOCK_MONOTONIC, &te);
+    diff.tv_sec = te.tv_sec - ts->tv_sec;
+    diff.tv_nsec = te.tv_nsec - ts->tv_nsec;
     sum->tv_sec += diff.tv_sec;
     sum->tv_nsec += diff.tv_nsec;
     ++*ctr;
@@ -80,7 +78,7 @@ int main(int argc, char *argv[])
     for (int i = 0; i < 10000; ++i)
     {
         clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &t, NULL);
-        get_work_time(test_work, NULL, &ctr, &sum, &min, &max);
+        get_work_time(test_work, NULL, &t, &ctr, &sum, &min, &max);
         t.tv_nsec += interval;
         while (t.tv_nsec >= NSEC_PER_SEC)
         {
