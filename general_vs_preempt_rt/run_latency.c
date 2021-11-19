@@ -9,38 +9,6 @@
 #define MAX_SAFE_STACK (8*1024)
 #define NSEC_PER_SEC (1000000000)
 
-void test_work(void *test_data);
-
-void get_work_time(void (*test_work)(void *), void *test_data, struct timespec *ts, int *ctr, struct timespec *sum, long *min, long *max)
-{
-    struct timespec te;
-    struct timespec diff;
-    test_work(test_data);
-    clock_gettime(CLOCK_MONOTONIC, &te);
-    diff.tv_sec = te.tv_sec - ts->tv_sec;
-    diff.tv_nsec = te.tv_nsec - ts->tv_nsec;
-    sum->tv_sec += diff.tv_sec;
-    sum->tv_nsec += diff.tv_nsec;
-    ++*ctr;
-    if (sum->tv_nsec >= NSEC_PER_SEC)
-    {
-        sum->tv_nsec -= NSEC_PER_SEC;
-	    sum->tv_sec += 1;
-    }
-    else if (sum->tv_nsec < 0)
-    {
-        sum->tv_nsec += NSEC_PER_SEC;
-	    sum->tv_sec -= 1;
-    }
-
-    long nsec = diff.tv_sec * NSEC_PER_SEC + diff.tv_nsec;
-    if (*min > nsec)
-        *min = nsec;
-    if (*max < nsec)
-        *max = nsec;
-    printf("%d %ld\n", *ctr, nsec);
-}
-
 void stack_prefault(void)
 {
     unsigned char dummy[MAX_SAFE_STACK];
