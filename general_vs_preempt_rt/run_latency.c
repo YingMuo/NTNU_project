@@ -5,7 +5,7 @@
 #include <sys/mman.h>
 #include <string.h>
 
-#define MY_PRIORITY (49)
+#define MY_PRIORITY (80)
 #define MAX_SAFE_STACK (8*1024)
 #define NSEC_PER_SEC (1000000000)
 
@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
     long max = 0x8000000000000000;
     int ctr = 0;
     struct sched_param param;
-    int interval = 1000000; // 1 ms
+    int interval = 10000000; // 1 ms
     param.sched_priority = MY_PRIORITY;
 
     if (sched_setscheduler(0, SCHED_FIFO, &param) == -1)
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 
     t.tv_sec++;
     // while (1)
-    for (int i = 0; i < 100000; ++i)
+    for (int i = 0; i < 10000; ++i)
     {
         clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &t, NULL);
         clock_gettime(CLOCK_MONOTONIC, &t2);
@@ -70,9 +70,9 @@ int main(int argc, char *argv[])
             min = nsec;
         if (max < nsec)
             max = nsec;
-        printf("%d %ld\n", ctr, nsec);
+        printf("%d %ld\n", ctr, nsec / 1000);
 
-        t.tv_nsec += interval;
+        t.tv_nsec += interval * (1 + nsec / interval);
         while (t.tv_nsec >= NSEC_PER_SEC)
         {
             t.tv_nsec -= NSEC_PER_SEC;
@@ -81,9 +81,9 @@ int main(int argc, char *argv[])
     }
 
     avg = (sum.tv_sec * NSEC_PER_SEC + sum.tv_nsec) / ctr;
-    printf("# sum: %ld\n", avg);
-    printf("# min: %ld\n", min);
-    printf("# max: %ld\n", max);
+    printf("# sum: %ld\n", avg / 1000);
+    printf("# min: %ld\n", min / 1000);
+    printf("# max: %ld\n", max / 1000);
 
     return 0;
 }
