@@ -1,0 +1,9 @@
+$ sudo ./cyclictest -a 0-3 -N -t -p50
+[sudo] password for yingmuo: 
+# /dev/cpu_dma_latency set to 0us
+policy: fifo: loadavg: 4.18 2.52 1.50 4/497 36615           
+
+T: 0 (36605) P:50 I:1000 C: 254389 Min:   7640 Act:   11726 Avg:   15745 Max:  393542
+T: 1 (36606) P:50 I:1500 C: 169592 Min:   7559 Act:   10990 Avg:   21254 Max:  280242
+T: 2 (36607) P:50 I:2000 C: 127194 Min:   7599 Act:   12528 Avg:   30672 Max:  481817
+T: 3 (36608) P:50 I:2500 C: 101755 Min:   7896 Act:   12048 Avg:   25396 Max:  183552

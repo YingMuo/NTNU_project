@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 
     t.tv_sec++;
     // while (1)
-    for (int i = 0; i < 1000000; ++i)
+    for (int i = 0; i < 100000; ++i)
     {
         clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &t, NULL);
         clock_gettime(CLOCK_MONOTONIC, &t2);
