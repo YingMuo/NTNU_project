@@ -10,6 +10,8 @@ with open(sys.argv[1], 'r') as input_file:
                 text = input_file.readline().split()
                 input_file.readline()
                 input_file.readline()
+                if 'Avg:' == text[11]:
+                    continue
                 output_file.write(str(idx) + ' ' + text[11] + '\n')
                 idx += 1
             except:

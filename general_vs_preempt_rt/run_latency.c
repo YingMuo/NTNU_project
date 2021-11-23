@@ -54,23 +54,19 @@ int main(int argc, char *argv[])
         sum.tv_sec += diff.tv_sec;
         sum.tv_nsec += diff.tv_nsec;
         ++ctr;
-        if (sum.tv_nsec >= NSEC_PER_SEC)
-        {
-            sum.tv_nsec -= NSEC_PER_SEC;
-            sum.tv_sec += 1;
-        }
-        else if (sum.tv_nsec < 0)
-        {
-            sum.tv_nsec += NSEC_PER_SEC;
-            sum.tv_sec -= 1;
-        }
 
         long nsec = diff.tv_sec * NSEC_PER_SEC + diff.tv_nsec;
-        if (min > nsec)
-            min = nsec;
-        if (max < nsec)
-            max = nsec;
-        printf("%d %ld\n", ctr, nsec / 1000);
+	if (nsec >= interval / 2)
+	    --i;
+	else
+	{
+            printf("%d %ld\n", ctr, nsec / 1000);
+
+            if (min > nsec)
+                min = nsec;
+            if (max < nsec)
+                max = nsec;
+	}
 
         t.tv_nsec += interval * (1 + nsec / interval);
         while (t.tv_nsec >= NSEC_PER_SEC)
