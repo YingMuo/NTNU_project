@@ -7,12 +7,14 @@ else
     main_dir="general"
 fi
 
+rm -r ${main_dir}
 mkdir ${main_dir}
 mkdir ${main_dir}/clean
 mkdir ${main_dir}/io-bound
 mkdir ${main_dir}/cpu-bound
 
 make
+sleep 10s
 
 sudo ./test_latency > ${main_dir}/clean/latency.txt
 sleep 10s
