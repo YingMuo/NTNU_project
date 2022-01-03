@@ -6,5 +6,5 @@ set term png enhanced font 'Verdana,10'
 set output 'io-bound.png'
 
 plot \
-'../../general/io-bound/latency_ctr.txt' using 1:2 with lines title 'general', \
-'../../preempt_rt/io-bound/latency_ctr.txt' using 1:2 with lines title 'preemp\_rt'
+'../../general/io-bound/latency_cdf.txt' using 1:2 with lines title 'general', \
+'../../preempt_rt/io-bound/latency_cdf.txt' using 1:2 with lines title 'preemp\_rt'

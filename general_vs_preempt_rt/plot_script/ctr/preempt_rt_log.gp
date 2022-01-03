@@ -8,6 +8,6 @@ set output 'preempt_rt_log.png'
 set log y
 
 plot \
-'../../preempt_rt/mine/clean/latency_ctr.txt' using 1:2 with lines title 'clean', \
-'../../preempt_rt/mine/cpu-bound/latency_ctr.txt' using 1:2 with lines title 'cpu-bound', \
-'../../preempt_rt/mine/io-bound/latency_ctr.txt' using 1:2 with lines title 'io-bound'
+'../../preempt_rt/clean/latency_ctr.txt' using 1:2 with lines title 'clean', \
+'../../preempt_rt/cpu-bound/latency_ctr.txt' using 1:2 with lines title 'cpu-bound', \
+'../../preempt_rt/io-bound/latency_ctr.txt' using 1:2 with lines title 'io-bound'

@@ -6,5 +6,5 @@ set term png enhanced font 'Verdana,10'
 set output 'clean.png'
 
 plot \
-'../../general/clean/latency_ctr.txt' using 1:2 with lines title 'general', \
-'../../preempt_rt/clean/latency_ctr.txt' using 1:2 with lines title 'preemp\_rt'
+'../../general/clean/latency_cdf.txt' using 1:2 with lines title 'general', \
+'../../preempt_rt/clean/latency_cdf.txt' using 1:2 with lines title 'preemp\_rt'

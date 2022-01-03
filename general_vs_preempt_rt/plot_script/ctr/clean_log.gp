@@ -8,5 +8,5 @@ set output 'clean_log.png'
 set log y
 
 plot \
-'../../general/mine/clean/latency_ctr.txt' using 1:2 with lines title 'general', \
-'../../preempt_rt/mine/clean/latency_ctr.txt' using 1:2 with lines title 'preemp\_rt'
+'../../general/clean/latency_ctr.txt' using 1:2 with lines title 'general', \
+'../../preempt_rt/clean/latency_ctr.txt' using 1:2 with lines title 'preemp\_rt'

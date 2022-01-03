@@ -8,6 +8,6 @@ set output 'general_log.png'
 set log y
 
 plot \
-'../../general/mine/clean/latency_ctr.txt' using 1:2 with lines title 'clean', \
-'../../general/mine/cpu-bound/latency_ctr.txt' using 1:2 with lines title 'cpu-bound', \
-'../../general/mine/io-bound/latency_ctr.txt' using 1:2 with lines title 'io-bound'
+'../../general/clean/latency_ctr.txt' using 1:2 with lines title 'clean', \
+'../../general/cpu-bound/latency_ctr.txt' using 1:2 with lines title 'cpu-bound', \
+'../../general/io-bound/latency_ctr.txt' using 1:2 with lines title 'io-bound'
