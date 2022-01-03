@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
     stack_prefault();
     clock_gettime(CLOCK_MONOTONIC, &t);
 
-    fork();
+    // fork();
     fork();
     fork();
 
@@ -83,7 +83,8 @@ int main(int argc, char *argv[])
     for (int i = 0; i < 10000; ++i)
     {
         clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &t, NULL);
-        get_work_time(test_work, NULL, &t, &ctr, &sum, &min, &max);
+        // get_work_time(test_work, NULL, &t, &ctr, &sum, &min, &max);
+        test_work(NULL);
         t.tv_nsec += interval;
         while (t.tv_nsec >= NSEC_PER_SEC)
         {
@@ -92,10 +93,10 @@ int main(int argc, char *argv[])
         }
     }
 
-    avg = (sum.tv_sec * NSEC_PER_SEC + sum.tv_nsec) / ctr;
-    printf("# sum: %ld\n", avg);
-    printf("# min: %ld\n", min);
-    printf("# max: %ld\n", max);
+    // avg = (sum.tv_sec * NSEC_PER_SEC + sum.tv_nsec) / ctr;
+    // printf("# sum: %ld\n", avg);
+    // printf("# min: %ld\n", min);
+    // printf("# max: %ld\n", max);
 
     return 0;
 }
