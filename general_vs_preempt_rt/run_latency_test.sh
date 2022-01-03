@@ -1,6 +1,6 @@
 #!/bin/sh
-
-if ["$1" = "preempt_rt"]
+echo $1
+if [ "$1" = "preempt_rt" ]
 then
     main_dir="preempt_rt"
 else
