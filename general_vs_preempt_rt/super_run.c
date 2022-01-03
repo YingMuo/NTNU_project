@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     long max = 0x8000000000000000;
     int ctr = 0;
     struct sched_param param;
-    int interval = 100000000; // 0.1s
+    int interval = 10000000; // 0.1s
     param.sched_priority = MY_PRIORITY;
 
     if (sched_setscheduler(0, SCHED_FIFO, &param) == -1)
