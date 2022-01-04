@@ -5,7 +5,7 @@ void test_work(void *test_data)
 {
     FILE *fin = fopen("input", "r");
     FILE *fout = fopen("output", "w");
-    char buf[1000000] = {0};
+    char buf[20000] = {0};
     fscanf(fin, "%s", buf);
     fprintf(fout, "%s", buf);
     fclose(fin);

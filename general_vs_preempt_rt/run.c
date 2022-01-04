@@ -5,9 +5,13 @@
 #include <sys/mman.h>
 #include <string.h>
 
-#define MY_PRIORITY (49)
+#define MY_PRIORITY (80)
 #define MAX_SAFE_STACK (8*1024)
 #define NSEC_PER_SEC (1000000000)
+#define LOOP_TIME (100000)
+#define INTERVAL (1000000)
+
+int ctr_err = 0;
 
 void test_work(void *test_data);
 
@@ -34,6 +38,13 @@ void get_work_time(void (*test_work)(void *), void *test_data, struct timespec *
     }
 
     long nsec = diff.tv_sec * NSEC_PER_SEC + diff.tv_nsec;
+    if (nsec >= INTERVAL)
+    {
+        --*ctr;
+        ++ctr_err;
+        return;
+    }
+
     if (*min > nsec)
         *min = nsec;
     if (*max < nsec)
@@ -57,7 +68,7 @@ int main(int argc, char *argv[])
     long max = 0x8000000000000000;
     int ctr = 0;
     struct sched_param param;
-    int interval = 10000000; // 0.1s
+    int interval = INTERVAL;
     param.sched_priority = MY_PRIORITY;
 
     if (sched_setscheduler(0, SCHED_FIFO, &param) == -1)
@@ -75,7 +86,8 @@ int main(int argc, char *argv[])
 
     t.tv_sec++;
     // while (1)
-    for (int i = 0; i < 10000; ++i)
+    // for (int i = 0; i < LOOP_TIME; ++i)
+    while(ctr < LOOP_TIME)
     {
         clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &t, NULL);
         get_work_time(test_work, NULL, &t, &ctr, &sum, &min, &max);
@@ -91,6 +103,7 @@ int main(int argc, char *argv[])
     printf("# sum: %ld\n", avg);
     printf("# min: %ld\n", min);
     printf("# max: %ld\n", max);
+    printf("# err cnt: %d\n", ctr_err);
 
     return 0;
 }

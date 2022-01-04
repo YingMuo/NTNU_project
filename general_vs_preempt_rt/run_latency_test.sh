@@ -19,6 +19,12 @@ sleep 10s
 sudo ./test_latency > ${main_dir}/clean/latency.txt
 sleep 10s
 
+sudo ./test_io > ${main_dir}/clean/io.txt
+sleep 10s
+
+sudo ./test_cpu > ${main_dir}/clean/cpu.txt
+sleep 10s
+
 sudo ./stress_io&
 sudo ./test_latency > ${main_dir}/io-bound/latency.txt
 cnt=$(ps aux | grep stress_io | awk '{print $2}' | wc | awk '{print $1}')

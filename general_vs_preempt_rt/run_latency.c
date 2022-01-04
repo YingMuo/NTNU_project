@@ -8,6 +8,8 @@
 #define MY_PRIORITY (80)
 #define MAX_SAFE_STACK (8*1024)
 #define NSEC_PER_SEC (1000000000)
+#define LOOP_TIME (100000)
+#define INTERVAL (1000000)
 
 void stack_prefault(void)
 {
@@ -25,9 +27,10 @@ int main(int argc, char *argv[])
     long avg = 0;
     long min = __LONG_MAX__;
     long max = 0x8000000000000000;
+    int ctr_err = 0;
     int ctr = 0;
     struct sched_param param;
-    int interval = 10000000; // 1 ms
+    int interval = INTERVAL; // 1 ms
     param.sched_priority = MY_PRIORITY;
 
     if (sched_setscheduler(0, SCHED_FIFO, &param) == -1)
@@ -45,7 +48,7 @@ int main(int argc, char *argv[])
 
     t.tv_sec++;
     // while (1)
-    for (int i = 0; i < 10000; ++i)
+    for (int i = 0; i < LOOP_TIME; ++i)
     {
         clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &t, NULL);
         clock_gettime(CLOCK_MONOTONIC, &t2);
@@ -56,17 +59,20 @@ int main(int argc, char *argv[])
         ++ctr;
 
         long nsec = diff.tv_sec * NSEC_PER_SEC + diff.tv_nsec;
-	if (nsec >= interval / 2)
-	    --i;
-	else
-	{
+        if (nsec >= INTERVAL)
+        {
+            --i;
+            ++ctr_err;
+        }
+        else
+        {
             printf("%d %ld\n", ctr, nsec / 1000);
 
             if (min > nsec)
                 min = nsec;
             if (max < nsec)
                 max = nsec;
-	}
+	    }
 
         t.tv_nsec += interval * (1 + nsec / interval);
         while (t.tv_nsec >= NSEC_PER_SEC)
@@ -80,6 +86,7 @@ int main(int argc, char *argv[])
     printf("# sum: %ld\n", avg / 1000);
     printf("# min: %ld\n", min / 1000);
     printf("# max: %ld\n", max / 1000);
+    printf("# err cnt: %d\n", ctr_err);
 
     return 0;
 }
