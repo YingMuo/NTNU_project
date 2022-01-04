@@ -15,7 +15,7 @@ int ctr_err = 0;
 
 void test_work(void *test_data);
 
-void get_work_time(void (*test_work)(void *), void *test_data, struct timespec *ts, int *ctr, struct timespec *sum, long *min, long *max)
+long get_work_time(void (*test_work)(void *), void *test_data, struct timespec *ts, int *ctr, struct timespec *sum, long *min, long *max)
 {
     struct timespec te;
     struct timespec diff;
@@ -42,14 +42,16 @@ void get_work_time(void (*test_work)(void *), void *test_data, struct timespec *
     {
         --*ctr;
         ++ctr_err;
-        return;
+        return nsec;
     }
 
     if (*min > nsec)
         *min = nsec;
     if (*max < nsec)
         *max = nsec;
+
     printf("%d %ld\n", *ctr, nsec);
+    return nsec;
 }
 
 void stack_prefault(void)
@@ -69,6 +71,7 @@ int main(int argc, char *argv[])
     int ctr = 0;
     struct sched_param param;
     int interval = INTERVAL;
+    long nsec = 0;
     param.sched_priority = MY_PRIORITY;
 
     if (sched_setscheduler(0, SCHED_FIFO, &param) == -1)
@@ -90,8 +93,8 @@ int main(int argc, char *argv[])
     while(ctr < LOOP_TIME)
     {
         clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &t, NULL);
-        get_work_time(test_work, NULL, &t, &ctr, &sum, &min, &max);
-        t.tv_nsec += interval;
+        nsec = get_work_time(test_work, NULL, &t, &ctr, &sum, &min, &max);
+        t.tv_nsec += interval * (1 + nsec / interval);
         while (t.tv_nsec >= NSEC_PER_SEC)
         {
             t.tv_nsec -= NSEC_PER_SEC;
