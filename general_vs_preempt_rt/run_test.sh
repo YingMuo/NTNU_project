@@ -16,19 +16,19 @@ mkdir ${main_dir}/cpu-bound
 make
 sleep 10s
 
-@echo "test latency"
+echo "=====test latency====="
 sudo ./test_latency > ${main_dir}/clean/latency.txt
 sleep 10s
 
-@echo "test io"
+echo "=====test io====="
 sudo ./test_io > ${main_dir}/clean/io.txt
 sleep 10s
 
-@echo "test cpu"
+echo "=====test cpu====="
 sudo ./test_cpu > ${main_dir}/clean/cpu.txt
 sleep 10s
 
-@echo "test latency with io stress"
+echo "=====test latency with io stress====="
 sudo ./stress_io&
 sudo ./test_latency > ${main_dir}/io-bound/latency.txt
 cnt=$(ps aux | grep stress_io | awk '{print $2}' | wc | awk '{print $1}')
@@ -38,7 +38,7 @@ do
         cnt=$(ps aux | grep stress_cpu | awk '{print $2}' | wc | awk '{print $1}')
 done
 
-@echo "test latency with cpu stress"
+echo "=====test latency with cpu stress====="
 sudo ./stress_cpu&
 sudo ./test_latency > ${main_dir}/cpu-bound/latency.txt
 cnt=$(ps aux | grep stress_cpu | awk '{print $2}' | wc | awk '{print $1}')
