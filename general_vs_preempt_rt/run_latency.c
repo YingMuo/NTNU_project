@@ -8,7 +8,7 @@
 #define MY_PRIORITY (80)
 #define MAX_SAFE_STACK (8*1024)
 #define NSEC_PER_SEC (1000000000)
-#define LOOP_TIME (100000)
+#define LOOP_TIME (10000)
 #define INTERVAL (1000000)
 
 void stack_prefault(void)
@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
         }
         else
         {
-            printf("%d %ld\n", ctr, nsec / 1000);
+            printf("%d %ld\n", i, nsec / 1000);
 
             if (min > nsec)
                 min = nsec;
