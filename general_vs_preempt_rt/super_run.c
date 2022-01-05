@@ -48,6 +48,7 @@ int main(int argc, char *argv[])
 
     fork();
     fork();
+    fork();
 
     t.tv_sec++;
     for (int i = 0; i < LOOP_TIME; ++i)
