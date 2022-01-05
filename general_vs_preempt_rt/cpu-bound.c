@@ -1,6 +1,6 @@
 void test_work(void *test_data)
 {
-    for (int i = 0; i < 4000; ++i)
+    for (int i = 0; i < 1500; ++i)
     {
         int m1[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         int m2[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};

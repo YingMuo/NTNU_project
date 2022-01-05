@@ -15,6 +15,11 @@ stress_io: super_run.o IO-bound.o
 	$(CC) $^ -o $@
 $(OBJS):
 
+main:
+	gcc -c main.c
+	gcc main.o IO-bound.o -o main_io
+	gcc main.o cpu-bound.o -o main_cpu
+
 .PHONY: clean
 clean:
 	rm *.o test_* stress_*

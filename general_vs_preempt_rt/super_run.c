@@ -14,36 +14,6 @@
 
 void test_work(void *test_data);
 
-void get_work_time(void (*test_work)(void *), void *test_data, struct timespec *ts, int *ctr, struct timespec *sum, long *min, long *max)
-{
-    struct timespec te;
-    struct timespec diff;
-    test_work(test_data);
-    clock_gettime(CLOCK_MONOTONIC, &te);
-    diff.tv_sec = te.tv_sec - ts->tv_sec;
-    diff.tv_nsec = te.tv_nsec - ts->tv_nsec;
-    sum->tv_sec += diff.tv_sec;
-    sum->tv_nsec += diff.tv_nsec;
-    ++*ctr;
-    if (sum->tv_nsec >= NSEC_PER_SEC)
-    {
-        sum->tv_nsec -= NSEC_PER_SEC;
-	    sum->tv_sec += 1;
-    }
-    else if (sum->tv_nsec < 0)
-    {
-        sum->tv_nsec += NSEC_PER_SEC;
-	    sum->tv_sec -= 1;
-    }
-
-    long nsec = diff.tv_sec * NSEC_PER_SEC + diff.tv_nsec;
-    if (*min > nsec)
-        *min = nsec;
-    if (*max < nsec)
-        *max = nsec;
-    printf("%d %ld\n", *ctr, nsec);
-}
-
 void stack_prefault(void)
 {
     unsigned char dummy[MAX_SAFE_STACK];
@@ -76,17 +46,13 @@ int main(int argc, char *argv[])
     stack_prefault();
     clock_gettime(CLOCK_MONOTONIC, &t);
 
-    // fork();
     fork();
     fork();
 
     t.tv_sec++;
-    // while (1)
-    // for (int i = 0; i < LOOP_TIME; ++i)
-    while(ctr < LOOP_TIME)
+    for (int i = 0; i < LOOP_TIME; ++i)
     {
         clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &t, NULL);
-        // get_work_time(test_work, NULL, &t, &ctr, &sum, &min, &max);
         test_work(NULL);
         t.tv_nsec += interval;
         while (t.tv_nsec >= NSEC_PER_SEC)
@@ -95,11 +61,6 @@ int main(int argc, char *argv[])
             t.tv_sec++;
         }
     }
-
-    // avg = (sum.tv_sec * NSEC_PER_SEC + sum.tv_nsec) / ctr;
-    // printf("# sum: %ld\n", avg);
-    // printf("# min: %ld\n", min);
-    // printf("# max: %ld\n", max);
 
     return 0;
 }
