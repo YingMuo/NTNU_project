@@ -3,9 +3,7 @@ set xlabel 'latency (us)'
 set ylabel 'time'
 set title 'latency general'
 set term png enhanced font 'Verdana,10'
-set output 'general_log.png'
-
-set log y
+set output 'latency_general.png'
 
 plot \
 '../../general/clean/latency_ctr.txt' using 1:2 with lines title 'clean', \

@@ -1,5 +1,10 @@
 #!/bin/sh
 mkdir plot
 cd plot
-gnuplot plot_script/ctr/*.gp
-gnuplot plot_script/cdf/*.gp
+mkdir ctr
+cd ctr
+gnuplot ../../plot_script/ctr/*.gp
+cd ..
+mkdir cdf
+cd cdf
+gnuplot ../../plot_script/cdf/*.gp

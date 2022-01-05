@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     int ctr = 0;
     struct sched_param param;
     int interval = INTERVAL; // 0.1s
-    param.sched_priority = MY_PRIORITY;
+    param.sched_priority = atoi(argv[1]);
 
     if (sched_setscheduler(0, SCHED_FIFO, &param) == -1)
     {

@@ -3,7 +3,7 @@ set xlabel 'latency (us)'
 set ylabel 'time'
 set title 'latency cpu-bound'
 set term png enhanced font 'Verdana,10'
-set output 'cpu-bound.png'
+set output 'latency_cpu.png'
 
 plot \
 '../../general/cpu-bound/latency_ctr.txt' using 1:2 with lines title 'general', \
