@@ -42,7 +42,7 @@ long get_work_time(void (*test_work)(void *), void *test_data, struct timespec *
     {
         --*ctr;
         ++ctr_err;
-        // return nsec;
+        return nsec;
     }
 
     if (*min > nsec)
