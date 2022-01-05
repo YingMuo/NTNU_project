@@ -10,8 +10,14 @@ fi
 rm -r ${main_dir}
 mkdir ${main_dir}
 mkdir ${main_dir}/clean
-mkdir ${main_dir}/io-bound
-mkdir ${main_dir}/cpu-bound
+mkdir -p ${main_dir}/io-bound/49
+mkdir -p ${main_dir}/io-bound/79
+mkdir -p ${main_dir}/io-bound/80
+mkdir -p ${main_dir}/io-bound/81
+mkdir -p ${main_dir}/cpu-bound/49
+mkdir -p ${main_dir}/cpu-bound/79
+mkdir -p ${main_dir}/cpu-bound/80
+mkdir -p ${main_dir}/cpu-bound/81
 
 make
 sleep 10s
@@ -111,25 +117,25 @@ done
 python3 plot_script/val_to_ctr.py ${main_dir}/clean/latency.txt ${main_dir}/clean/latency_ctr.txt
 python3 plot_script/val_to_ctr.py ${main_dir}/clean/io.txt ${main_dir}/clean/io_ctr.txt
 python3 plot_script/val_to_ctr.py ${main_dir}/clean/cpu.txt ${main_dir}/clean/cpu_ctr.txt
-python3 plot_script/val_to_ctr.py ${main_dir}/io-bound/49/latency.txt ${main_dir}/io-bound/latency_ctr.txt
-python3 plot_script/val_to_ctr.py ${main_dir}/io-bound/79/latency.txt ${main_dir}/io-bound/latency_ctr.txt
-python3 plot_script/val_to_ctr.py ${main_dir}/io-bound/80/latency.txt ${main_dir}/io-bound/latency_ctr.txt
-python3 plot_script/val_to_ctr.py ${main_dir}/io-bound/81/latency.txt ${main_dir}/io-bound/latency_ctr.txt
-python3 plot_script/val_to_ctr.py ${main_dir}/cpu-bound/49/latency.txt ${main_dir}/cpu-bound/latency_ctr.txt
-python3 plot_script/val_to_ctr.py ${main_dir}/cpu-bound/79/latency.txt ${main_dir}/cpu-bound/latency_ctr.txt
-python3 plot_script/val_to_ctr.py ${main_dir}/cpu-bound/80/latency.txt ${main_dir}/cpu-bound/latency_ctr.txt
-python3 plot_script/val_to_ctr.py ${main_dir}/cpu-bound/81/latency.txt ${main_dir}/cpu-bound/latency_ctr.txt
+python3 plot_script/val_to_ctr.py ${main_dir}/io-bound/49/latency.txt ${main_dir}/io-bound/49/latency_ctr.txt
+python3 plot_script/val_to_ctr.py ${main_dir}/io-bound/79/latency.txt ${main_dir}/io-bound/79/latency_ctr.txt
+python3 plot_script/val_to_ctr.py ${main_dir}/io-bound/80/latency.txt ${main_dir}/io-bound/80/latency_ctr.txt
+python3 plot_script/val_to_ctr.py ${main_dir}/io-bound/81/latency.txt ${main_dir}/io-bound/81/latency_ctr.txt
+python3 plot_script/val_to_ctr.py ${main_dir}/cpu-bound/49/latency.txt ${main_dir}/cpu-bound/49/latency_ctr.txt
+python3 plot_script/val_to_ctr.py ${main_dir}/cpu-bound/79/latency.txt ${main_dir}/cpu-bound/79/latency_ctr.txt
+python3 plot_script/val_to_ctr.py ${main_dir}/cpu-bound/80/latency.txt ${main_dir}/cpu-bound/80/latency_ctr.txt
+python3 plot_script/val_to_ctr.py ${main_dir}/cpu-bound/81/latency.txt ${main_dir}/cpu-bound/81/latency_ctr.txt
 
 python3 plot_script/ctr_to_cdf.py ${main_dir}/clean/latency_ctr.txt ${main_dir}/clean/latency_cdf.txt
 python3 plot_script/ctr_to_cdf.py ${main_dir}/clean/io_ctr.txt ${main_dir}/clean/io_cdf.txt
 python3 plot_script/ctr_to_cdf.py ${main_dir}/clean/cpu_ctr.txt ${main_dir}/clean/cpu_cdf.txt
-python3 plot_script/ctr_to_cdf.py ${main_dir}/io-bound/49/latency_ctr.txt ${main_dir}/io-bound/latency_cdf.txt
-python3 plot_script/ctr_to_cdf.py ${main_dir}/io-bound/79/latency_ctr.txt ${main_dir}/io-bound/latency_cdf.txt
-python3 plot_script/ctr_to_cdf.py ${main_dir}/io-bound/80/latency_ctr.txt ${main_dir}/io-bound/latency_cdf.txt
-python3 plot_script/ctr_to_cdf.py ${main_dir}/io-bound/81/latency_ctr.txt ${main_dir}/io-bound/latency_cdf.txt
-python3 plot_script/ctr_to_cdf.py ${main_dir}/cpu-bound/49/latency_ctr.txt ${main_dir}/cpu-bound/latency_cdf.txt
-python3 plot_script/ctr_to_cdf.py ${main_dir}/cpu-bound/79/latency_ctr.txt ${main_dir}/cpu-bound/latency_cdf.txt
-python3 plot_script/ctr_to_cdf.py ${main_dir}/cpu-bound/80/latency_ctr.txt ${main_dir}/cpu-bound/latency_cdf.txt
-python3 plot_script/ctr_to_cdf.py ${main_dir}/cpu-bound/81/latency_ctr.txt ${main_dir}/cpu-bound/latency_cdf.txt
+python3 plot_script/ctr_to_cdf.py ${main_dir}/io-bound/49/latency_ctr.txt ${main_dir}/io-bound/49/latency_cdf.txt
+python3 plot_script/ctr_to_cdf.py ${main_dir}/io-bound/79/latency_ctr.txt ${main_dir}/io-bound/79/latency_cdf.txt
+python3 plot_script/ctr_to_cdf.py ${main_dir}/io-bound/80/latency_ctr.txt ${main_dir}/io-bound/80/latency_cdf.txt
+python3 plot_script/ctr_to_cdf.py ${main_dir}/io-bound/81/latency_ctr.txt ${main_dir}/io-bound/81/latency_cdf.txt
+python3 plot_script/ctr_to_cdf.py ${main_dir}/cpu-bound/49/latency_ctr.txt ${main_dir}/cpu-bound/49/latency_cdf.txt
+python3 plot_script/ctr_to_cdf.py ${main_dir}/cpu-bound/79/latency_ctr.txt ${main_dir}/cpu-bound/79/latency_cdf.txt
+python3 plot_script/ctr_to_cdf.py ${main_dir}/cpu-bound/80/latency_ctr.txt ${main_dir}/cpu-bound/80/latency_cdf.txt
+python3 plot_script/ctr_to_cdf.py ${main_dir}/cpu-bound/81/latency_ctr.txt ${main_dir}/cpu-bound/81/latency_cdf.txt
 
 make clean
