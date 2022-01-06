@@ -7,6 +7,8 @@ else
     main_dir="general"
 fi
 
+echo ${main_dir}
+
 rm -r ${main_dir}
 mkdir ${main_dir}
 mkdir ${main_dir}/clean
