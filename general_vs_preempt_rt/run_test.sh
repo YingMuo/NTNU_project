@@ -41,7 +41,7 @@ cnt=$(ps aux | grep stress_io | awk '{print $2}' | wc | awk '{print $1}')
 while [ ${cnt} -gt 1 ]
 do
         sleep 10s
-        cnt=$(ps aux | grep stress_cpu | awk '{print $2}' | wc | awk '{print $1}')
+        cnt=$(ps aux | grep stress_io | awk '{print $2}' | wc | awk '{print $1}')
 done
 
 echo "=====test latency with io stress 79====="
@@ -51,7 +51,7 @@ cnt=$(ps aux | grep stress_io | awk '{print $2}' | wc | awk '{print $1}')
 while [ ${cnt} -gt 1 ]
 do
         sleep 10s
-        cnt=$(ps aux | grep stress_cpu | awk '{print $2}' | wc | awk '{print $1}')
+        cnt=$(ps aux | grep stress_io | awk '{print $2}' | wc | awk '{print $1}')
 done
 
 echo "=====test latency with io stress 80====="
@@ -61,7 +61,7 @@ cnt=$(ps aux | grep stress_io | awk '{print $2}' | wc | awk '{print $1}')
 while [ ${cnt} -gt 1 ]
 do
         sleep 10s
-        cnt=$(ps aux | grep stress_cpu | awk '{print $2}' | wc | awk '{print $1}')
+        cnt=$(ps aux | grep stress_io | awk '{print $2}' | wc | awk '{print $1}')
 done
 
 echo "=====test latency with io stress 81====="
@@ -71,7 +71,7 @@ cnt=$(ps aux | grep stress_io | awk '{print $2}' | wc | awk '{print $1}')
 while [ ${cnt} -gt 1 ]
 do
         sleep 10s
-        cnt=$(ps aux | grep stress_cpu | awk '{print $2}' | wc | awk '{print $1}')
+        cnt=$(ps aux | grep stress_io | awk '{print $2}' | wc | awk '{print $1}')
 done
 
 echo "=====test latency with cpu stress 49====="
