@@ -10,7 +10,7 @@
 #define MAX_SAFE_STACK (8*1024)
 #define NSEC_PER_SEC (1000000000)
 #define LOOP_TIME (10000)
-#define INTERVAL (10000000)
+#define INTERVAL (3000000)
 
 void test_work(void *test_data);
 
