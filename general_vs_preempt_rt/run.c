@@ -50,7 +50,7 @@ long get_work_time(void (*test_work)(void *), void *test_data, struct timespec *
     if (*max < nsec)
         *max = nsec;
 
-    printf("%d %ld\n", *ctr, nsec);
+    printf("%d %ld\n", *ctr, nsec / 1000);
     return nsec;
 }
 
@@ -103,9 +103,9 @@ int main(int argc, char *argv[])
     }
 
     avg = (sum.tv_sec * NSEC_PER_SEC + sum.tv_nsec) / ctr;
-    printf("# sum: %ld\n", avg);
-    printf("# min: %ld\n", min);
-    printf("# max: %ld\n", max);
+    printf("# sum: %ld\n", avg / 1000);
+    printf("# min: %ld\n", min / 1000);
+    printf("# max: %ld\n", max / 1000);
     printf("# err cnt: %d\n", ctr_err);
 
     return 0;
