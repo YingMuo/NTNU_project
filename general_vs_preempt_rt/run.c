@@ -12,6 +12,7 @@
 #define INTERVAL (3000000)
 
 int ctr_err = 0;
+long res[LOOP_TIME];
 
 void test_work(void *test_data);
 
@@ -23,9 +24,21 @@ long get_work_time(void (*test_work)(void *), void *test_data, struct timespec *
     clock_gettime(CLOCK_MONOTONIC, &te);
     diff.tv_sec = te.tv_sec - ts->tv_sec;
     diff.tv_nsec = te.tv_nsec - ts->tv_nsec;
+
+    long nsec = diff.tv_sec * NSEC_PER_SEC + diff.tv_nsec;
+    if (nsec >= INTERVAL)
+    {
+        ++ctr_err;
+        return nsec;
+    }
+
+    if (*min > nsec)
+        *min = nsec;
+    if (*max < nsec)
+        *max = nsec;
+    
     sum->tv_sec += diff.tv_sec;
     sum->tv_nsec += diff.tv_nsec;
-    ++*ctr;
     if (sum->tv_nsec >= NSEC_PER_SEC)
     {
         sum->tv_nsec -= NSEC_PER_SEC;
@@ -37,20 +50,9 @@ long get_work_time(void (*test_work)(void *), void *test_data, struct timespec *
 	    sum->tv_sec -= 1;
     }
 
-    long nsec = diff.tv_sec * NSEC_PER_SEC + diff.tv_nsec;
-    if (nsec >= INTERVAL)
-    {
-        --*ctr;
-        ++ctr_err;
-        return nsec;
-    }
-
-    if (*min > nsec)
-        *min = nsec;
-    if (*max < nsec)
-        *max = nsec;
-
-    printf("%d %ld\n", *ctr, nsec / 1000);
+    res[*ctr] = nsec;
+    ++*ctr;
+    // printf("%d %ld\n", *ctr, nsec / 1000);
     return nsec;
 }
 
@@ -102,6 +104,8 @@ int main(int argc, char *argv[])
         }
     }
 
+    for (int i = 0; i < LOOP_TIME; ++i)
+        printf("%d %ld\n", i, res[i] / 1000);
     avg = (sum.tv_sec * NSEC_PER_SEC + sum.tv_nsec) / ctr;
     printf("# sum: %ld\n", avg / 1000);
     printf("# min: %ld\n", min / 1000);

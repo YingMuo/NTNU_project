@@ -11,6 +11,8 @@
 #define LOOP_TIME (10000)
 #define INTERVAL (3000000)
 
+long res[LOOP_TIME];
+
 void stack_prefault(void)
 {
     unsigned char dummy[MAX_SAFE_STACK];
@@ -54,9 +56,8 @@ int main(int argc, char *argv[])
         clock_gettime(CLOCK_MONOTONIC, &t2);
         diff.tv_sec = t2.tv_sec - t.tv_sec;
         diff.tv_nsec = t2.tv_nsec - t.tv_nsec;
-        sum.tv_sec += diff.tv_sec;
-        sum.tv_nsec += diff.tv_nsec;
-        ++ctr;
+        
+        // ++ctr;
 
         long nsec = diff.tv_sec * NSEC_PER_SEC + diff.tv_nsec;
         if (nsec >= INTERVAL)
@@ -66,12 +67,15 @@ int main(int argc, char *argv[])
         }
         else
         {
-            printf("%d %ld\n", i, nsec / 1000);
+            // printf("%d %ld\n", i, nsec / 1000);
+            res[i] = nsec;
 
             if (min > nsec)
                 min = nsec;
             if (max < nsec)
                 max = nsec;
+            sum.tv_sec += diff.tv_sec;
+            sum.tv_nsec += diff.tv_nsec;
 	    }
 
         t.tv_nsec += interval * (1 + nsec / interval);
@@ -82,7 +86,9 @@ int main(int argc, char *argv[])
         }
     }
 
-    avg = (sum.tv_sec * NSEC_PER_SEC + sum.tv_nsec) / ctr;
+    for (int i = 0; i < LOOP_TIME; ++i)
+        printf("%d %ld\n", i, res[i] / 1000);
+    avg = (sum.tv_sec * NSEC_PER_SEC + sum.tv_nsec) / LOOP_TIME;
     printf("# sum: %ld\n", avg / 1000);
     printf("# min: %ld\n", min / 1000);
     printf("# max: %ld\n", max / 1000);
