@@ -1,13 +1,20 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
-void test_work(void *test_data)
+#define NUM (200000)
+
+char buf[NUM];
+
+void test_work(char **name)
 {
-    FILE *fin = fopen("input2", "r");
-    FILE *fout = fopen("output2", "w");
-    char buf[100005] = {0};
-    fscanf(fin, "%s", buf);
-    fprintf(fout, "%s", buf);
-    fclose(fin);
-    fclose(fout);
+    int infd = open(name[0], O_RDONLY);
+    int outfd = open(name[1], O_WRONLY);
+    read(infd, buf, NUM);
+    write(outfd, buf, NUM);
+    close(infd);
+    close(outfd);
 }
