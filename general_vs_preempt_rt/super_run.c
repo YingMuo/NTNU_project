@@ -6,12 +6,13 @@
 #include <string.h>
 #include <unistd.h>
 #include <string.h>
+#include <pthread.h>
 
 #define MY_PRIORITY (80)
 #define MAX_SAFE_STACK (8*1024)
 #define NSEC_PER_SEC (1000000000)
 #define LOOP_TIME (15000)
-#define INTERVAL (3000000)
+#define INTERVAL (10000000)
 
 void test_work(void *test_data);
 
@@ -46,20 +47,21 @@ int main(int argc, char *argv[])
 
     stack_prefault();
 
-    fork();
-    pid_t pid = fork();
-    // if (pid == 0)
-    //     fork();
-
-    char in_name[20];
-    char out_name[20];
-    strcpy(in_name, "io_file/input");
-    in_name[13] = getpid() % 10 + 0x30;
-    in_name[14] = 0;
-    strcpy(out_name, "io_file/output");
-    out_name[14] = getpid() % 10 + 0x30;
-    out_name[15] = 0;
-    char *name[2] = {in_name, out_name};
+    int num = atoi(argv[2]) - 1;
+    if (num)
+    {
+    	pid_t pid = fork();
+		for (int i = 0; i < num - 1; ++i)
+		{
+			if (pid == 0)
+				pid = fork();
+		}
+    }
+    
+	char fname[20];
+    strcpy(fname, "io_file/output");
+    fname[14] = getpid() % 10 + 0x30;
+    fname[15] = 0;
 
     clock_gettime(CLOCK_MONOTONIC, &t);
 
@@ -67,7 +69,7 @@ int main(int argc, char *argv[])
     for (int i = 0; i < LOOP_TIME; ++i)
     {
         clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &t, NULL);
-        test_work(name);
+        test_work(fname);
         t.tv_nsec += interval;
         while (t.tv_nsec >= NSEC_PER_SEC)
         {

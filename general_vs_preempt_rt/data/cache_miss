@@ -1,0 +1,8 @@
+ Performance counter stats for './test_cpu':
+
+           1359162      cache-misses
+
+      61.103115484 seconds time elapsed
+
+      13.000411000 seconds user
+       0.367432000 seconds sys

@@ -5,14 +5,14 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#define NUM (200000)
+#define NUM (100000)
 
 char buf[NUM];
 
-void test_work(char **name)
+void test_work(char *name)
 {
-    int infd = open(name[0], O_RDONLY);
-    int outfd = open(name[1], O_WRONLY);
+    int infd = open("/dev/urandom", O_RDONLY);
+    int outfd = open(name, O_WRONLY);
     read(infd, buf, NUM);
     write(outfd, buf, NUM);
     close(infd);
