@@ -46,13 +46,12 @@ do
 					num=$((${idle}/10-1))
 				fi
                 	        sudo ./stress_${stress} ${i} ${num} $ &
-                        	sudo ./test_${test} > ${main_dir}/${stress}-bound/${idle}/${i}/${test}.txt &
-	                        cnt=$(ps aux | grep stress_${stress} | awk '{print $2}' | wc | awk '{print $1}')
-        	                while [ ${cnt} -gt 1 ]
-                	        do
-                        	        sleep 10s
-                                	cnt=$(ps aux | grep stress_${stress} | awk '{print $2}' | wc | awk '{print $1}')
-	                        done
+                        	sudo ./test_${test} > ${main_dir}/${stress}-bound/${idle}/${i}/${test}.txt
+                for i in $(ps aux | grep stress_${stress} | awk '{print $2}')
+                do
+                    sudo kill -9 ${i}
+                done
+                sleep 10s
 			done
                 done
         done

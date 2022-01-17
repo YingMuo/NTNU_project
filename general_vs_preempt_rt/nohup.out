@@ -225,3 +225,31 @@ gcc super_run.o cpu-bound2.o -o stress_cpu
 =====test cpu with cpu stress idle 80 & prio 80=====
 =====test cpu with cpu stress idle 80 & prio 81=====
 rm *.o test_* stress_*
+=====preempt_rt=====
+gcc    -c -o run_latency.o run_latency.c
+gcc run_latency.o -o test_latency
+gcc    -c -o run.o run.c
+gcc    -c -o IO-bound.o IO-bound.c
+gcc run.o IO-bound.o -o test_io
+gcc    -c -o cpu-bound.o cpu-bound.c
+gcc run.o cpu-bound.o -o test_cpu
+gcc    -c -o super_run.o super_run.c
+gcc    -c -o IO-bound2.o IO-bound2.c
+gcc super_run.o IO-bound2.o -o stress_io
+gcc    -c -o cpu-bound2.o cpu-bound2.c
+gcc super_run.o cpu-bound2.o -o stress_cpu
+=====test latency=====
+=====test latency with io stress idle 20 & prio 49=====
+=====test latency with io stress idle 20 & prio 79=====
+=====test latency with io stress idle 20 & prio 80=====
+=====test latency with io stress idle 20 & prio 81=====
+=====test latency with io stress idle 40 & prio 49=====
+=====test latency with io stress idle 40 & prio 79=====
+=====test latency with io stress idle 40 & prio 80=====
+=====test latency with io stress idle 40 & prio 81=====
+=====test latency with io stress idle 60 & prio 49=====
+=====test latency with io stress idle 60 & prio 79=====
+=====test latency with io stress idle 60 & prio 80=====
+=====test latency with io stress idle 60 & prio 81=====
+=====test latency with io stress idle 80 & prio 49=====
+=====test latency with io stress idle 80 & prio 79=====
