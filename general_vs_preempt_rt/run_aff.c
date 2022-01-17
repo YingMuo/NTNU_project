@@ -5,6 +5,7 @@
 #include <sched.h>
 #include <sys/mman.h>
 #include <string.h>
+#include <unistd.h>
 
 #define MY_PRIORITY (80)
 #define MAX_SAFE_STACK (8*1024)
