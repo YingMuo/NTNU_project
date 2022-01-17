@@ -15,7 +15,7 @@ for stress in io cpu
 do
     for idle in 20 40 60 80
     do
-        for prio in 49 79 80 81
+        for prio in 79 80 81
         do
             mkdir -p ${main_dir}/${stress}/${idle}/{$prio}
         done
@@ -29,7 +29,7 @@ for stress in io cpu
 do
 	for idle in 20 40 60 80
 	do
-        for prio in 49 79 80 81
+        for prio in 79 80 81
         do
    	        echo "=====test latency with stress ${stress} not idle ${idle} & prio ${prio}====="
             sudo ./test_latency > ${main_dir}/${stress}-bound/${idle}/${prio}/latency.txt
@@ -46,7 +46,7 @@ for stress in io cpu
 do
     for idle in 20 40 60 80
 	do
-        for prio in 49 79 80 81
+        for prio in 79 80 81
         do
             python3 plot_script/val_to_ctr.py ${main_dir}/${stress}-bound/${idle}/${prio}/${test}.txt ${main_dir}/${stress}-bound/${idle}/${prio}/${test}_ctr.txt
             python3 plot_script/ctr_to_cdf.py ${main_dir}/${stress}-bound/${idle}/${prio}/${test}_ctr.txt ${main_dir}/${stress}-bound/${idle}/${prio}/${test}_cdf.txt
