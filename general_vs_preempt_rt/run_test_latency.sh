@@ -49,6 +49,8 @@ do
     done
 done
 
+python3 plot_script/val_to_ctr.py ${main_dir}/clean/latency.txt ${main_dir}/clean/latency_ctr.txt
+python3 plot_script/ctr_to_cdf.py ${main_dir}/clean/latency_ctr.txt ${main_dir}/clean/latency_cdf.txt
 for stress in io cpu
 do
     for idle in 20 40 60 80
