@@ -26,6 +26,7 @@ do
         	    echo "=====test ${test} with not idle ${idle}====="
 				num=$((${idle}/10))
                 sudo ./test_${test} ${num} > ${main_dir}/${idle}/${test}.txt
+		sleep 1s
         done
 done
 
