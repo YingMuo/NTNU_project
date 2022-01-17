@@ -27,7 +27,7 @@ make
 sleep 5s
 
 echo "=====test latency====="
-sudo ./test_latency > ${main_dir}/clean/latency.txt
+sudo ./test_latency_aff > ${main_dir}/clean/latency.txt
 sleep 1s
 
 for stress in io cpu
@@ -38,8 +38,8 @@ do
         do
    	        echo "=====test latency with stress ${stress} not idle ${idle} & prio ${prio}====="
             num=$((${idle}/10))
-            sudo ./stress_${stress} ${prio} 4 ${num} &
-            sudo ./test_latency > ${main_dir}/${stress}-bound/${idle}/${prio}/latency.txt
+            sudo ./stress_${stress}_aff ${prio} 1 ${num} &
+            sudo ./test_latency_aff > ${main_dir}/${stress}-bound/${idle}/${prio}/latency.txt
             for i in $(ps aux | grep stress_${stress} | awk '{print $2}')
             do
                 sudo kill -9 ${i}
