@@ -5,16 +5,17 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#define NUM (100000)
+#define NUM (33000)
 
-char buf[NUM];
+char buf[NUM * 10];
 
 void test_work(void *test_data)
 {
+    int n = *(int *)test_data * NUM;
     int infd = open("/dev/urandom", O_RDONLY);
     int outfd = open("io_file/output", O_WRONLY);
-    read(infd, buf, NUM);
-    write(outfd, buf, NUM);
+    read(infd, buf, n);
+    write(outfd, buf, n);
     close(infd);
     close(outfd);
 }

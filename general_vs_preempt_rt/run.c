@@ -75,6 +75,7 @@ int main(int argc, char *argv[])
     int interval = INTERVAL;
     long nsec = 0;
     param.sched_priority = MY_PRIORITY;
+    int mag = atoi(argv[1]);
 
     if (sched_setscheduler(0, SCHED_FIFO, &param) == -1)
     {
@@ -95,7 +96,7 @@ int main(int argc, char *argv[])
     while(ctr < LOOP_TIME)
     {
         clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &t, NULL);
-        nsec = get_work_time(test_work, NULL, &t, &ctr, &sum, &min, &max);
+        nsec = get_work_time(test_work, &mag, &t, &ctr, &sum, &min, &max);
         t.tv_nsec += interval * (1 + nsec / interval);
         while (t.tv_nsec >= NSEC_PER_SEC)
         {

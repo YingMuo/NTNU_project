@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
     struct sched_param param;
     int interval = INTERVAL; // 0.1s
     param.sched_priority = atoi(argv[1]);
+    int mag = atoi(argv[3]);
 
     if (sched_setscheduler(0, SCHED_FIFO, &param) == -1)
     {
@@ -62,6 +63,7 @@ int main(int argc, char *argv[])
     strcpy(fname, "io_file/output");
     fname[14] = getpid() % 10 + 0x30;
     fname[15] = 0;
+    void *ptr[2] = {&mag, fname};
 
     clock_gettime(CLOCK_MONOTONIC, &t);
 
@@ -69,7 +71,7 @@ int main(int argc, char *argv[])
     for (int i = 0; i < LOOP_TIME; ++i)
     {
         clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &t, NULL);
-        test_work(fname);
+        test_work(ptr);
         t.tv_nsec += interval;
         while (t.tv_nsec >= NSEC_PER_SEC)
         {
