@@ -17,7 +17,7 @@ do
 done
 
 make
-sleep 10s
+sleep 1s
 
 for test in io cpu
 do
