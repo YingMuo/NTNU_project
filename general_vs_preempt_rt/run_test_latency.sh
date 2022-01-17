@@ -11,6 +11,7 @@ echo "=====${main_dir}====="
 
 rm -r ${main_dir}
 mkdir ${main_dir}
+mkdir ${main_dir}/clean
 for stress in io cpu
 do
     for idle in 20 40 60 80
@@ -24,6 +25,10 @@ done
 
 make
 sleep 5s
+
+echo "=====test latency====="
+sudo ./test_latency > ${main_dir}/clean/latency.txt
+sleep 1s
 
 for stress in io cpu
 do

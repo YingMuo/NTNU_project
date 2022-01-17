@@ -5,7 +5,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#define NUM (33000)
+#define NUM (28000)
 
 char buf[NUM * 10];
 
