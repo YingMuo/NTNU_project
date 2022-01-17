@@ -8,7 +8,7 @@
 #define MY_PRIORITY (80)
 #define MAX_SAFE_STACK (8*1024)
 #define NSEC_PER_SEC (1000000000)
-#define LOOP_TIME (10000)
+#define LOOP_TIME (1000)
 #define INTERVAL (10000000)
 
 long res[LOOP_TIME];
